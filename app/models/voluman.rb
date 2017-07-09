@@ -1,0 +1,2 @@
+class Voluman < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class Entfernung < ApplicationRecord
+end
