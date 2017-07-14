@@ -8,6 +8,36 @@ class Api::V1::PostsController < ApplicationController
     render json: {status: 'SUCCESS', message: 'Loaded all posts', data: posts}, status: :ok
   end
 
+  def volumen
+  end
+
+  def new
+    #logger.info @user.id
+    @post = render json: params[:post]
+    parsed_post = JSON.parse @post
+
+    volumen = parsed_post['volumen']
+    entfernung = parsed_post['entfernung']
+
+    neu = Volumen.new(volumen)
+    if neu.save
+      @status = ":created"
+    else
+      @status = ":conflict"
+    end
+
+    neu = Entfernung.new(entfernung)
+    if neu.save
+      @status = ":created"
+    else
+      @status = ":conflict"
+    end
+
+  end
+
+  def show
+  end
+
 
   private
     def authenticate_user

@@ -8,9 +8,14 @@ Rails.application.routes.draw do
 
   namespace :api do
   namespace :v1 do
-    	resources :posts
+    	resources :posts do
+        collection do
+          get  'volumen', :action => 'volumen'
+          post 'create', :action => 'new'
+        end
+    	end
     end
-  end 
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
