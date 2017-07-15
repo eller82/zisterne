@@ -16,4 +16,34 @@
  // Custom bootstrap variables must be set or imported *before* bootstrap.
   @import "bootstrap";
 
-  //body { padding-top: 70px; }
+  body {
+    min-height: 75rem;
+    padding-top: 4.5rem;
+  }
+
+  .block {
+    max-height: 390px;
+    max-width: 250px;
+    //background-color: blue;
+    border: 1px;
+    border-color: gray;
+    border-style: solid;
+  }
+
+  .center {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+
+  }
+
+  .block .text {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }

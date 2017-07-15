@@ -1,2 +1,20 @@
-<h1>Status#index</h1>
-<p>Find me in app/views/status/index.html.erb</p>
+<style>
+.fill {
+      background: linear-gradient(to bottom,  white 0%,white <%=@fluid%>%,#33ccff <%=@fluid%>%,#33ccff 100%);
+	    background-size: cover;
+    	background-repeat: no-repeat;
+}
+</style>
+
+<div class="col-xs-10 col-sm-8 col-md-5 col-lg-4 block center fill">
+  <div class="text" align="center">
+    <h2><%= number_with_precision(@percentage, :precision => 2) %>%</h2>
+    <%= @volumen.volumen %> Liter <br /><br />
+
+  </div>
+</div>
+
+</footer>
+<nav class="navbar fixed-bottom navbar-light bg-faded">
+  <small><b>letztes Update:</b> <i><%= @volumen.messdatum %></i></small>
+</nav>
