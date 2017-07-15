@@ -1,0 +1,8 @@
+<div align="center">
+  [<a href="/chart/">last 7 days</a>] |
+  [<a href="/chart?dauer=24">last 24hrs]</a> |
+  [<a href="/chart?dauer=12">last 12 hrs]</a> |
+  [<a href="/chart?dauer=1">last hour</a>]
+</div>
+
+<%= area_chart @data, xtitle: 'Uhrzeit', ytitle: 'Volumen l', label: "Fuellstand", download: true %>

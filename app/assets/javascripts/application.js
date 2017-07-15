@@ -15,4 +15,8 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
+//= require highcharts
+//= require chartkick
 //= require_tree .
+
+Chartkick.configure({language: "de"});

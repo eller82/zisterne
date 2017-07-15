@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+
+  root 'status#index'
+
   get 'posts/index'
 
   get 'status/index'
-  root 'status#index'
+  get '/chart', to: 'status#chart', as: 'chart'
 
   devise_for :users
 

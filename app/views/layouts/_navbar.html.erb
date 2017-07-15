@@ -10,7 +10,7 @@
       </li>
       <% if user_signed_in? %>
       <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fa fa-line-chart" aria-hidden="true"></i> Verlauf</a>
+        <%= link_to '<i class="fa fa-line-chart" aria-hidden="true"></i> Verlauf'.html_safe, chart_path, :class => 'nav-link' %>
       </li>
       <% end %>
     </ul>

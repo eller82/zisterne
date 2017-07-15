@@ -23,9 +23,10 @@ gem 'uglifier', '>= 1.3.0'
 
 #authentication service
 gem 'devise'
-
 #font pictures
 gem 'font-awesome-sass'
+#gem chartkick for highcharts
+gem 'chartkick'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
