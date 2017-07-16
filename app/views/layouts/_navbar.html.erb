@@ -16,12 +16,14 @@
     </ul>
     <ul class="navbar-nav pull-xs-right">
       <% if user_signed_in? %>
-        <span class="navbar-text">Eingeloggt als <strong><%= current_user.email %></strong> |</span>
-        <li class="nav-item <%= active_class(edit_user_registration_path) %>">
-          <%= link_to '<i class="fa fa-user" aria-hidden="true"></i> Edit profile'.html_safe, edit_user_registration_path, :class => 'nav-link' %>
-        </li>
-        <li class="nav-item <%= active_class(destroy_user_session_path) %>">
-          <%= link_to '<i class="fa fa-sign-out" aria-hidden="true"></i> Logout'.html_safe, destroy_user_session_path, method: :delete, :class => 'nav-link'  %>
+        <li class ="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <strong><i class="fa fa-user" aria-hidden="true"></i> <%= current_user.email %></strong>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <%= link_to '<i class="fa fa-user" aria-hidden="true"></i> Edit profile'.html_safe, edit_user_registration_path, :class => 'dropdown-item' %>
+            <%= link_to '<i class="fa fa-sign-out" aria-hidden="true"></i> Logout'.html_safe, destroy_user_session_path, method: :delete, :class => 'dropdown-item'  %>
+          </div>
         </li>
       <% else %>
         <li class="nav-item <%= active_class(new_user_registration_path) %>">
