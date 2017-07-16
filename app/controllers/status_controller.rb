@@ -21,12 +21,13 @@ class StatusController < ApplicationController
   #show history graph of fluid level
   def chart
     if params[:dauer].nil?
-      dauer = "7 DAY"
+      time = 7.days.ago
     else
-      dauer = "#{params[:dauer]} HOUR"
+      time = params[:dauer].to_i.hours.ago
+      logger.info time
     end
 
-    volumen = Volumen.select("messdatum, volumen").where("messdatum >= DATE_SUB(NOW( ),INTERVAL #{dauer})").order("messdatum")
+    volumen = Volumen.select("messdatum, volumen").where("messdatum >= '#{time}'").order("messdatum")
     @data = create_graph_data(volumen)
   end
 
