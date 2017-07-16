@@ -21,9 +21,9 @@ class StatusController < ApplicationController
   #show history graph of fluid level
   def chart
     if params[:dauer].nil?
-      time = 7.days.ago
+      time = 7.days.ago.utc
     else
-      time = params[:dauer].to_i.hours.ago
+      time = params[:dauer].to_i.hours.ago.utc
       logger.info time
     end
 
