@@ -21,8 +21,14 @@ gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+# use bootstrap
+# https://github.com/twbs/bootstrap-rubygem
+gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem'
+gem 'jquery-rails'
 #authentication service
 gem 'devise'
+#use a token for api authentication
+gem 'has_secure_token'
 #font pictures
 gem 'font-awesome-sass'
 #gem chartkick for highcharts
@@ -41,14 +47,6 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
-# use bootstrap
-# https://github.com/twbs/bootstrap-rubygem
-gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem'
-gem 'jquery-rails'
-
-#use a token for api authentication
-gem 'has_secure_token'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
