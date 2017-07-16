@@ -15,5 +15,6 @@ module Zisterne2
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.i18n.default_locale = :de
+    config.time_zone = 'Berlin'
   end
 end
