@@ -20,3 +20,9 @@
 //= require_tree .
 
 Chartkick.configure({language: "de"});
+
+Highcharts.setOptions({
+  global: {
+    timezoneOffset: -2 * 60
+  }
+});
