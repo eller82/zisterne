@@ -32,6 +32,8 @@ class Api::V1::PostsController < ApplicationController
     else
       @status = ":conflict"
     end
+    
+    zisterne_alert(volumen['volumen'])
 
   end
 
@@ -60,4 +62,66 @@ class Api::V1::PostsController < ApplicationController
       return false
     end
 
+    #alerts for Zisterne Volume
+    def zisterne_alert(volume)
+      
+      percent_zis = volume.to_f.percent_of(4500)
+      
+      #get last alert value
+      la = Alerts.select("last_alert").last_alert(1).first
+      
+      #check which alter needs to be send
+      if not la
+        lap = 100
+      else 
+        lap = la.last_alert.to_i
+      end
+      
+      #logger.info lap
+      #logger.info percent_zis
+      
+      if percent_zis < 5 and lap != percent_zis
+        alert = "5"
+      elsif percent_zis < 10 and lap != percent_zis
+        alert = "10"
+      elsif percent_zis < 25 and lap != percent_zis
+        alert = "25"        
+      elsif percent_zis < 50 and lap != percent_zis
+        alert = "50"        
+      elsif percent_zis < 75  and lap != percent_zis
+        alert = "75"        
+      else
+        alert = 100
+      end
+      
+      #update database with the last alert
+      if not la
+        a = Alerts.new
+        a.user_id = 1
+        a.last_alert = alert       
+        a.save!
+        
+        #send alert mail
+        AlertMailer.alert_email("Alert", alert).deliver_now
+        
+      elsif lap.to_i != alert.to_i
+        Alerts.last_alert(1).update_all(last_alert: alert)        
+        
+        #send alert mail
+        if lap.to_i > alert.to_i
+          AlertMailer.alert_email("Alert", alert).deliver_now
+        else
+          AlertMailer.alert_email("Hinweis", alert).deliver_now
+        end
+      end
+
+    end
+
+end
+
+#geklaut von: https://stackoverflow.com/questions/3668345/calculate-percentage-in-ruby
+class Numeric
+  def percent_of(n)
+    self.to_f / n.to_f * 100.0
+  end
 end

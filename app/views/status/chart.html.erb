@@ -1,8 +1,16 @@
-<div align="center">
-  [<a href="/chart/">last 7 days</a>] |
-  [<a href="/chart?dauer=24">last 24hrs]</a> |
-  [<a href="/chart?dauer=12">last 12 hrs]</a> |
-  [<a href="/chart?dauer=1">last hour</a>]
+<div class="row">
+	<div class="col-md-12">
+		<div class="chart-button float-right">
+			<div class="btn-group">
+				<a href="?dauer=1" class="btn btn-outline-secondary <%= active_class(1) %>" type="button">last hr</a>
+                <a href="?dauer=12" class="btn btn-outline-secondary <%= active_class(12) %>" type="button">12 hrs</a>
+                <a href="?dauer=24" class="btn btn-outline-secondary <%= active_class(24) %>" type="button">24 hrs</a>
+                <a href="?dauer=168" class="btn btn-outline-secondary <%= active_class(168) %>" type="button">7 days</a>
+			</div>
+		</div>
+        <div class="chart-container">
+			</br></br></br>
+            <%= area_chart chartdata_path(@dauer), xtitle: 'Uhrzeit', ytitle: 'Volumen l', label: "Fuellstand", min: 0, max: 4500, messages: {empty: "No data"}, download: true %>
+		</div>
+	</div>
 </div>
-
-<%= area_chart @data, xtitle: 'Uhrzeit', ytitle: 'Volumen l', label: "Fuellstand", download: true %>

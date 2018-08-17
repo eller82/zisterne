@@ -6,17 +6,18 @@ Rails.application.routes.draw do
 
   get 'status/index'
   get '/chart', to: 'status#chart', as: 'chart'
+  get '/chartdata/:dauer', to: 'status#chartdata', as: 'chartdata'
 
   devise_for :users
 
   namespace :api do
   namespace :v1 do
-    	resources :posts do
+      resources :posts do
         collection do
           get  'volumen', :action => 'volumen'
           post 'create', :action => 'new'
         end
-    	end
+      end
     end
   end
 
