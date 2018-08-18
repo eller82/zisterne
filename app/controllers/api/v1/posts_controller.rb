@@ -12,7 +12,7 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def new
-    #logger.info @user.id
+    
     @post = render json: params[:post]
     parsed_post = JSON.parse @post
 
@@ -33,7 +33,7 @@ class Api::V1::PostsController < ApplicationController
       @status = ":conflict"
     end
     
-    zisterne_alert(volumen['volumen'])
+    zisterne_alert(volumen['volumen'], @user.id)
 
   end
 
@@ -42,6 +42,7 @@ class Api::V1::PostsController < ApplicationController
 
 
   private
+  
     def authenticate_user
       user_token = request.headers['X-USER-TOKEN']
       if user_token
@@ -63,12 +64,13 @@ class Api::V1::PostsController < ApplicationController
     end
 
     #alerts for Zisterne Volume
-    def zisterne_alert(volume)
+    def zisterne_alert(volume, user_id)
       
+      #TODO: move Zisternen Volume to Database
       percent_zis = volume.to_f.percent_of(4500)
       
       #get last alert value
-      la = Alerts.select("last_alert").last_alert(1).first
+      la = Alerts.select("last_alert").last_alert(user_id).first
       
       #check which alter needs to be send
       if not la
@@ -76,9 +78,6 @@ class Api::V1::PostsController < ApplicationController
       else 
         lap = la.last_alert.to_i
       end
-      
-      #logger.info lap
-      #logger.info percent_zis
       
       if percent_zis < 5 and lap != percent_zis
         alert = "5"
@@ -97,21 +96,21 @@ class Api::V1::PostsController < ApplicationController
       #update database with the last alert
       if not la
         a = Alerts.new
-        a.user_id = 1
+        a.user_id = user_id
         a.last_alert = alert       
         a.save!
         
         #send alert mail
-        AlertMailer.alert_email("Alert", alert).deliver_now
+        AlertMailer.alert_email("Alert", alert, @user.email).deliver_now
         
       elsif lap.to_i != alert.to_i
-        Alerts.last_alert(1).update_all(last_alert: alert)        
+        Alerts.last_alert(user_id).update_all(last_alert: alert)        
         
         #send alert mail
         if lap.to_i > alert.to_i
-          AlertMailer.alert_email("Alert", alert).deliver_now
+          AlertMailer.alert_email("Alert", alert, @user.email).deliver_now
         else
-          AlertMailer.alert_email("Hinweis", alert).deliver_now
+          AlertMailer.alert_email("Hinweis", alert, @user.email).deliver_now
         end
       end
 
