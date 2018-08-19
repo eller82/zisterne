@@ -24,14 +24,14 @@ gem 'uglifier', '>= 1.3.0'
 
 # use bootstrap
 # https://github.com/twbs/bootstrap-rubygem
-gem 'bootstrap', '~> 4.1.3'
+#gem 'bootstrap', '~> 4.1.3'
 gem 'jquery-rails'
 #authentication service
 gem 'devise'
 #use a token for api authentication
 gem 'has_secure_token'
 #font pictures
-gem 'font-awesome-sass'
+#gem 'font-awesome-sass'
 #gem chartkick for highcharts
 gem 'chartkick'
 
