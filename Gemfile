@@ -24,7 +24,7 @@ gem 'uglifier', '>= 1.3.0'
 
 # use bootstrap
 # https://github.com/twbs/bootstrap-rubygem
-gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem'
+gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem', '4.0.0'
 gem 'jquery-rails'
 #authentication service
 gem 'devise'
