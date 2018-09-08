@@ -1,7 +1,13 @@
 <h1><%= @type %></h1>
-  <p>
-    Der Wasserstand in der Zisterne ist jetzt unter <b><%= @alert %>%</b>.<br>
-  </p>
+  <% if @type == "Hinweis" %>
+  	<p>
+    	Der Wasserstand in der Zisterne ist jetzt &uuml;ber <b><%= @alert %>%</b> und betr&auml;gt jetzt <%= @volume%>l.<br>
+  	</p>
+  <% else %>
+  	<p>
+    	Der Wasserstand in der Zisterne ist jetzt unter <b><%= @alert %>%</b> und betr&auml;gt jetzt <%= @volume%>l.<br>
+  	</p>
+  <% end %>
 <p>Viele Grüße, </br>
    André Mellentin
 </p> 

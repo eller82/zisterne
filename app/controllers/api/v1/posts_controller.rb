@@ -72,28 +72,20 @@ class Api::V1::PostsController < ApplicationController
       #get last alert value
       la = Alerts.select("last_alert").last_alert(user_id).first
       
-      #check which alter needs to be send
+      #check which alert needs to be send
       if not la
         lap = 100
       else 
         lap = la.last_alert.to_i
       end
       
-      if percent_zis < 5 and lap != percent_zis
-        alert = "5"
-      elsif percent_zis < 10 and lap != percent_zis
-        alert = "10"
-      elsif percent_zis < 25 and lap != percent_zis
-        alert = "25"        
-      elsif percent_zis < 50 and lap != percent_zis
-        alert = "50"        
-      elsif percent_zis < 75  and lap != percent_zis
-        alert = "75"        
-      else
-        alert = 100
-      end
+      limits = Array.new
+      limits = [5,10,25,50,75,100]
+
+      alert = alert_value(percent_zis, lap, limits)
+      logger.info alert
       
-      #update database with the last alert
+      #create new alert in the db or update database with the last alert
       if not la
         a = Alerts.new
         a.user_id = user_id
@@ -108,14 +100,22 @@ class Api::V1::PostsController < ApplicationController
         
         #send alert mail
         if lap.to_i > alert.to_i
-          AlertMailer.alert_email("Alert", alert, @user.email).deliver_now
+          AlertMailer.alert_email("Achtung", alert, volume, @user.email).deliver_now
         else
-          AlertMailer.alert_email("Hinweis", alert, @user.email).deliver_now
+          AlertMailer.alert_email("Hinweis", limits[limits.index(alert.to_i)-1], volume, @user.email).deliver_now
         end
       end
-
     end
 
+    #define the alert value
+    def alert_value(percent_zis, lap, limits)
+      limits.each do |i|
+        if percent_zis < i and lap != percent_zis
+          alert = i.to_s
+          break alert
+        end
+      end
+    end  
 end
 
 #geklaut von: https://stackoverflow.com/questions/3668345/calculate-percentage-in-ruby
@@ -123,4 +123,5 @@ class Numeric
   def percent_of(n)
     self.to_f / n.to_f * 100.0
   end
+
 end
