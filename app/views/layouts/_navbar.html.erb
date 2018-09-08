@@ -10,7 +10,7 @@
       </li>
       <% if user_signed_in? %>
       <li class="nav-item <%= active_class(chart_path) %>">
-        <%= link_to '<i class="fa fa-line-chart" aria-hidden="true"></i> Verlauf'.html_safe, chart_path, :class => 'nav-link' %>
+        <%= link_to '<i class="fas fa-chart-line" aria-hidden="true"></i> Verlauf'.html_safe, chart_path, :class => 'nav-link' %>
       </li>
       <% end %>
     </ul>
@@ -30,7 +30,7 @@
           <%= link_to '<i class="fa fa-user-plus" aria-hidden="true"></i> Sign up'.html_safe, new_user_registration_path, :class => 'nav-link'  %>
         </li>
         <li class="nav-item <%= active_class(new_user_session_path) %>">
-          <%= link_to '<i class="fa fa-sign-out" aria-hidden="true"></i> Login'.html_safe, new_user_session_path, :class => 'nav-link'  %>
+          <%= link_to '<i class="fas fa-sign-in-alt"></i> Login'.html_safe, new_user_session_path, :class => 'nav-link'  %>
         </li>
       <% end %>
     </ul>
